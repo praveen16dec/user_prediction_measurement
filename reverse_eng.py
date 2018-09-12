@@ -46,11 +46,14 @@ for each in user_dict:
     user_dict[each] = np.transpose(np.array(user_dict[each]))
 #print(user_dict)
 
+##################################### Deleting the corrrupt/fake data ###################################
 for each in user_dict:
     for element in user_dict[each]:
         for value in element:
             if float(value) < 10 or float(value) > 60:
                 list(element).remove(value)
+
+## Calculating the variance in input parameters having same output
 maths_dict = {}
 for each in user_dict:
     maths_dict[each] = {}
