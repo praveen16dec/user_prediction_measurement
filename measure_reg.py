@@ -31,6 +31,8 @@ test_param_3 = []
 test_param_4 = []
 test_target = []
 # print('Variance score: %.2f' % r2_score(np_test_y, data_y_pred))
+
+## Can add as many parameters as you like. In this case, I have worked on four parameters
 for each in mea_fml[1:]:
     param_1.append(each[1])
     param_2.append(each[2])
@@ -53,6 +55,8 @@ for each in mea_fml_test[1:]:
 param_list = [param_1, param_2, param_3, param_4]
 test_param_list = [test_param_1, test_param_2, test_param_3, test_param_4]
 
+
+## Regression on combination of 3 or 4 of parameters. This can be modified as per use.
 error_dict = {}
 for i in range(3,5):
     comb_list = list(itertools.combinations(param_list,i))
@@ -77,7 +81,8 @@ for i in range(3,5):
         np_test_trans_arr = np.transpose(np_test_arr)
         #print(np_train_arr)
         #print(np_test_arr)
-
+        
+        ## Deleting the corrupt/fake data
         corrupt_index_list_train = []
         corrupt_index_list_test = []
         for index_train, each in enumerate(np_train_trans_arr):
@@ -106,7 +111,8 @@ for i in range(3,5):
 
         np_test_x = np_test_x.astype(float)
         np_test_y = np_test_y.astype(float)
-
+        
+        ## Linear Regression model and summary statistics to get the best set of parameters evaluated on MSE
         regr = linear_model.LinearRegression()
         regr.fit(np_train_x, np_train_y)
         data_y_pred = regr.predict(np_test_x)
