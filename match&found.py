@@ -49,7 +49,7 @@ for i in range(3,5):
     for each in comb_list:
         counter_found = 0
         counter_match = 0
-	    counter_true = 0
+	counter_true = 0
         counter_total = 0
         test_key = ""
         test_list_1 = []
@@ -70,22 +70,26 @@ for i in range(3,5):
                     test_index_list_new.append(index)
         test_final_arr_trans_clean = np.delete(test_final_arr_trans,test_index_list_new,0)
         
-        for each in test_final_arr_trans_clean:
-            counter_total += 1
-        for each in test_index_list:
+	## Generating the combination of input parameters in the test data
+	for each in test_index_list:
             test_key = test_key + str(each) + "-"
+        
+	for each in test_final_arr_trans_clean:
+            counter_total += 1
 	    try:
-            look_up_list = list(measurements_match[test_key])
+            	look_up_list = list(measurements_match[test_key])
 	    except:
 	        pass
 	    low_accuracy[test_key] = {}
 	    high_accuracy[test_key] = {}
+	
         for element in test_final_arr_trans_clean:
 	        low_accuracy[test_key][list(element)[-1]] = []
 	        high_accuracy[test_key][list(element)[-1]] = []
             for each in look_up_list:
                 if (list(each)[0:-1] == list(element)[0:-1]):
                     #counter_found += 1
+		    ## Calculating the distance between the outputs for same input parameters in test_data
                     if test_key not in error_dict:
                         error_dict[test_key] = [[abs(float(list(element)[-1]) - float(list(each)[-1])),float(list(element)[-1])]]
                     else:
