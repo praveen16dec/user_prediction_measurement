@@ -69,6 +69,7 @@ for i in range(1,2):
         for each in final_arr_trans_clean_ratio:
             ratio.append(float(each[-1])/float(each[0]))
 
+            
 import statistics as s
 print(s.mean(ratio), s.variance(ratio), len(ratio))
 print(ratio)
