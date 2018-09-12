@@ -16,7 +16,7 @@ print(len(mea_fml_train))
 print(len(mea_fml_test))
 
 
-## CLEANING OF DATA--------------------------------------------
+############################################### CLEANING OF DATA ###################################################
 corrupt_data_index_train = []
 corrupt_data_index_test = []
 
@@ -36,7 +36,7 @@ for each in sorted(corrupt_data_index_train, reverse=True):
 for each in sorted(corrupt_data_index_test, reverse=True):
     del mea_fml_test[each]
 
-## Generating User body profiles from train data
+####################################### Generating User body profiles from train data ###############################
 np_mea_fml_train = np.array(mea_fml_train[1:])
 np_mea_fml_test  = np.array(mea_fml_test[1:])
 
@@ -47,6 +47,9 @@ np_train_input = np_mea_fml_train[:,1:]
 
 np_test_output = np_mea_fml_test[:,0]
 np_test_input = np_mea_fml_test[:,1:]
+
+##################### Generating the frequency distribution of the user profiles and estimating the ################# 
+############################## measures of central tendency on the range of output ##################################
 
 counter = 0
 user_profile_counter = {}
@@ -66,16 +69,17 @@ for each in user_profile_counter:
     user_profile_counter[each]["output_mean"] = np.mean(np.array(user_profile_counter[each]["output"]))
     user_profile_counter[each]["output_variance"] = np.var(np.array(user_profile_counter[each]["output"]))
 
+#################################### Estimating the user profile spread on the test data ############################
 counter_total = 0
 counter_find = 0
 for i, each in enumerate(np_mea_fml_test[0:]):
     counter_total += 0
-    for element in np_mea_fml_test[0:]:
-        if list(each[1:]) == list(element[1:]):
+    for key, value in user_profile_counter.items():
+        if str(each[1:]) == key:
             counter_find += 1
             break
 
-
+print(counter_find, counter_total)
 
 
 
