@@ -9,6 +9,7 @@ with open('/Users/praveenyadav/Downloads/mea_ml_train.csv', 'r') as f:
     reader = csv.reader(f)
     mea_fml = list(reader)
 
+## Can add as many parameters as you want to
 param_1 = []
 param_2 = []
 param_3 = []
@@ -67,7 +68,8 @@ for i in range(3,5):
                     index_list_new.append(index)
         final_arr_trans_clean = np.delete(final_arr_trans,index_list_new,0)
         #print(final_arr_trans_clean)
-
+        
+        ## Clustering of profiles with same input set and a tolerance of 1 in output
         for i, each in enumerate(final_arr_trans_clean):
             if list(each) not in measurements_match_list:
                 measurements_match_list.append(list(each))
@@ -76,7 +78,7 @@ for i in range(3,5):
                     if list(element) not in measurements_match_list:
                         measurements_match_list.append(list(element))
                     counter += 1
-                elif (list(each)[0:-1] == list(element)[0:-1]) and (list(each)[-1] != list(element)[-1]):
+                elif (list(each)[0:-1] == list(element)[0:-1]) and (abs(float(list(each)[-1])-float(list(element)[-1])) > 1):
                     counter_not += 1
                 else:
                     pass
@@ -92,7 +94,9 @@ for i in range(3,5):
                 #         counter_row += 1
                 # if counter_row == length-1 and each[-1] != element[-1]:
                 #     counter_not += 1
+ 
 
+        ## User profile list for different combination of input parameters
         for each in index_list:
             key = key + str(each) + "-"
             comparator_dict[key] = [counter, counter_not]
